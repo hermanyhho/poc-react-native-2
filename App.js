@@ -17,8 +17,11 @@ export default function App() {
   const [postcode, setPostcode] = React.useState('M2 3NG');
   const [date, setDate] = React.useState(Date.now());
   
-const renderItem = ({ item }) => (
-    <Button value={item.title} />
+  const renderItem = ({ item }) => (
+    <View>
+      <Text>{item.ClubName}</Text>
+      <Button title='Book' />
+    </View>
     );
 
   return (
@@ -50,8 +53,8 @@ const renderItem = ({ item }) => (
 
       <FlatList
         data={_mockData}
-        renderItem={item => renderItem(item)}
-        keyExtractor={item => item.ClubName}
+        renderItem={renderItem}
+        keyExtractor={item => item.ClubId}
       />
 
     </View>
