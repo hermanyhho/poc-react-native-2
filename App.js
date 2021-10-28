@@ -1,31 +1,19 @@
+// import core libraries:
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Button, ImageBackground, SafeAreaView, TextInput, FlatList } from 'react-native';
+import { StyleSheet, Text, View, ImageBackground } from 'react-native';
+
+// now import our own data:
+import TeeTimeSearchInputs from './src/components/teeTimeSearchInputs';
+import TeeSheetList from './src/components/TeeSheetList';
 import _mockData from "./src/assets/data/mockDataTeeTimes";
 import _bannerImage from './src/assets/images/golfimage.jpg';
 
 export default function App() {
-  // const onChangeText = function(data){
-  //   // validation here
-  //   console.log(data);
-  // }
-  // const onChangeDate = function(data){
-  //   // validation here
-  //   console.log(data);
-  // }
-
-  const [postcode, setPostcode] = React.useState('M2 3NG');
-  const [date, setDate] = React.useState(Date.now());
-  
-  const renderItem = ({ item }) => (
-    <View>
-      <Text>{item.ClubName}</Text>
-      <Button title='Book' />
-    </View>
-    );
+  const homePageFeaturedTeeTimes = _mockData.splice(0, 4);
 
   return (
-    <View style={styles.container}>
+    <View style={styles.homeContainer}>
       <StatusBar style="auto" />
 
       {/* top background image */}
@@ -36,46 +24,31 @@ export default function App() {
         <Text style={styles.smalltext}>Because your worth it !</Text>
       </ImageBackground>
 
-      <SafeAreaView>
-        <TextInput
-          style={styles.input}
-          onChangeText={postcode => setPostcode(postcode)}
-          onSubmitEditing={postcode => onPostcodeSubmit(postcode)}
-          value={postcode}
-        />
-        <TextInput
-          style={styles.input}
-          onChangeText={date => setDate(date)}
-          value={date}
-          placeholder='Choose date'
-        />
-      </SafeAreaView>
+        <TeeTimeSearchInputs />
 
-      <FlatList
-        data={_mockData}
-        renderItem={renderItem}
-        keyExtractor={item => item.ClubId}
-      />
+        <TeeSheetList data={homePageFeaturedTeeTimes}> 
+        </TeeSheetList>
 
     </View>
   );
 }
 
-
+// styling
+// TODO: need to separate these out.
 const styles = StyleSheet.create({
-  container: {
+  homeContainer: {
     flex: 1,
+    width: '100%',
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'top',
   },
   golfImage: {
-    width: 750,
+    width: '100%',
     resizeMode: "cover",
     padding: 150,
     paddingLeft: 0,
     paddingRight: 0,
-    //border: '1px solid blue'
   },
   text: {
     textAlign: 'center',
@@ -88,11 +61,5 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 25,
     fontWeight: 'bold'
-  },
-  input: {
-    height: 40,
-    margin: 12,
-    borderWidth: 1,
-    padding: 10,
   }
 });
