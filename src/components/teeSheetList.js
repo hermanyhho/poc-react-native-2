@@ -1,16 +1,20 @@
 import React from 'react';
-import { StyleSheet, View, Text, FlatList, Pressable, ImageBackground } from 'react-native';
+import { StyleSheet, Dimensions, View, Text, FlatList, Pressable, Image } from 'react-native';
+import _defaultCourseImage from '../../src/assets/images/golf-course-0.jpg';
 
-import _emptyCourseIcon from '../../src/assets/images/adaptive-icon.png';
+const {width, height} = Dimensions.get('window');
 
 const renderItem = ({ item }) => (
   <View style={styles.teeTimeListItem}>
-    <ImageBackground style={styles.teeTimeListItemCourseImage} src={_emptyCourseIcon} />
-    <Text style={styles.teeTimeListItemClubName}>{item.ClubName}</Text>
-    <Text style={styles.teeTimeListItemPriceOneBall}>£{item.PriceOneBall}</Text>
-    <Pressable style={styles.teeTimeListItemBookButton}>
-      <Text style={styles.teeTimeListItemBookButtonText}>Book</Text>
-    </Pressable>
+    <Image style={styles.teeTimeListItemCourseImage} source={_defaultCourseImage} />
+    <View style={styles.teeTimeListItemRight}>
+      <Text style={styles.teeTimeListItemClubName}>{item.ClubName}</Text>
+      <Text style={styles.teeTimeListItemDateTime}>{item.TeeTimeStart}</Text>
+      <Text style={styles.teeTimeListItemPriceOneBall}>£{item.PriceOneBall}</Text>
+      <Pressable style={styles.teeTimeListItemBookButton}>
+        <Text style={styles.teeTimeListItemBookButtonText}>Book</Text>
+      </Pressable>
+    </View>
   </View>
 );
 
@@ -29,32 +33,77 @@ export default class TeeSheetList extends React.Component{
         />
       </View>
     )
-  }
+  } 
 }
 
 // styling:
 const styles = StyleSheet.create({
+  
+  // outer list container:
   teeSheetList:{
     width: '100%',
-    padding: 10,
     marginBottom: 15  
   },
-  teeTimeListItemCourseImage:{
-    width:100,
-    height:100,
-    flex: 2,
-    border: '1px solid #ccc',
-    borderRadius: 4
-  },
+
+  // tee time list: individual list items:
   teeTimeListItem:{
-  },
-  teeTimeListItemClubName:{
-    fontSize: 18,
+    flexDirection: "row",
+    height: 150,
+    border: '1px solid #ccc',
+    borderRadius: 4,
     marginBottom: 10
   },
-  teeTimeListItemPriceOneBall:{
-    fontWeight: 'bold'
+
+  // tee time: course image
+  teeTimeListItemCourseImage:{
+    flexDirection: "row",
+    flex: 2,
+    maxWidth: 200,
+    flexWrap: 'wrap',
+    alignContent: 'flex-start',
+    borderRight: '1px solid #ccc',
+    backgroundColor: '#eee'
   },
+
+  // tee time: right div
+  teeTimeListItemRight:{
+    position: 'relative',
+    flexDirection: "row",
+    flex: 4,
+    flexWrap: 'wrap',
+    alignContent: 'flex-start',
+    padding: 15,
+  },
+
+  // tee time: club name
+  teeTimeListItemClubName:{ 
+    width: '100%',
+    fontSize: 20,
+    marginBottom: 10,
+    overflow: 'hidden',
+    fontFamily: 'sans-serif'
+  },
+
+  teeTimeListItemDateTime:{
+    width: '100%',
+    marginBottom: 10,
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#666',
+  },
+
+  // tee time: price
+  teeTimeListItemPriceOneBall:{
+    position: 'absolute',
+    left: 10,
+    bottom: 10,
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+    fontFamily: 'sans-serif'
+  },
+  
+  // "Book" button
   teeTimeListItemBookButton:{
     width: 100,
     paddingVertical: 10,
@@ -62,11 +111,17 @@ const styles = StyleSheet.create({
     borderRadius: 4,
     elevation: 3,
     backgroundColor: 'green',
+    position: 'absolute',
+    right: 10,
+    bottom: 10
   },
+
+  // "Book" button: text
   teeTimeListItemBookButtonText: {
     color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
-    textAlign: 'center'
+    textAlign: 'center',
+    fontFamily: 'sans-serif'
   }
 })
