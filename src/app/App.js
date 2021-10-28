@@ -1,6 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View, Image, ImageBackground, SafeAreaView,TextInput } from 'react-native';
+import { StyleSheet, Text, View, Button, ImageBackground, SafeAreaView, TextInput, FlatList } from 'react-native';
+import _mockData from "./assets/Data/mockDataTeeTimes";
 
 export default function App() {
   // const onChangeText = function(data){
@@ -11,12 +12,13 @@ export default function App() {
   //   // validation here
   //   console.log(data);
   // }
-const onPostcodeSubmit = function(data){
-  console.log(data);
-}
 
   const [postcode, setPostcode] = React.useState('M2 3NG');
   const [date, setDate] = React.useState(Date.now());
+  
+const renderItem = ({ item }) => (
+    <Button value={item.title} />
+    );
 
   return (
     <View style={styles.container}>
@@ -44,6 +46,12 @@ const onPostcodeSubmit = function(data){
           placeholder='Choose date'
         />
       </SafeAreaView>
+
+      <FlatList
+        data={_mockData}
+        renderItem={item => renderItem(item)}
+        keyExtractor={item => item.ClubName}
+      />
 
     </View>
   );
@@ -77,7 +85,7 @@ const styles = StyleSheet.create({
     fontSize: 25,
     fontWeight: 'bold'
   },
-  input:{
+  input: {
     height: 40,
     margin: 12,
     borderWidth: 1,
