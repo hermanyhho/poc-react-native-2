@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View, Button, ImageBackground, SafeAreaView, TextInput, FlatList } from 'react-native';
-import _mockData from "./assets/Data/mockDataTeeTimes";
+import _mockData from "./src/assets/data/mockDataTeeTimes";
+import _bannerImage from './src/assets/images/golfimage.jpg';
 
 export default function App() {
   // const onChangeText = function(data){
@@ -27,7 +28,7 @@ const renderItem = ({ item }) => (
       {/* top background image */}
       <ImageBackground
         style={styles.golfImage}
-        source={require('./Images/golfimage.jpg')}>
+        source={_bannerImage}>
         <Text style={styles.text}>my awsome golf app!</Text>
         <Text style={styles.smalltext}>Because your worth it !</Text>
       </ImageBackground>
